@@ -5,7 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-10">
             <div class="card">
-                <div class="card-header">{{ __('All Pizza') }}</div>
+                <div class="card-header">{{ __('All Pizza') }}
+                    <a href="{{route('pizza.create')}}"><button class="btn btn-success" style="float:right">Add pizza</button></a>
+                </div>
 
                 <div class="card-body">
                     @if (session('message'))
@@ -30,6 +32,7 @@
                           </tr>
                         </thead>
                         <tbody>
+                            @if(count($pizzas)>0)
                             @foreach($pizzas as $key=> $pizza)
                           <tr>
                             <th scope="row">{{$key+1}}</th>
@@ -40,12 +43,37 @@
                             <td>{{$pizza->small_price}}</td>
                             <td>{{$pizza->medium_price}}</td>
                             <td>{{$pizza->large_price}}</td>
-                            <td><button class="btn btn-primary">Edit</button></td>
-                            <td><button class="btn btn-danger">Delete</button></td>
-                          </tr>
+                            <td><a href="{{route('pizza.edit',$pizza->id)}}"><button class="btn btn-primary">Edit</button></a></td>
+                            <td><button class="btn btn-danger" data-toggle="modal" data-target="#exampleModal{{$pizza->id}}">Delete</button></td>
+                            <!-- Modal -->
+                         <div class="modal fade" id="exampleModal{{$pizza->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Confirm Deletion</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                </div>
+                                <div class="modal-body">
+                                Are you sure that you'd like to delete this pizza?
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="button" class="btn btn-danger">Delete</button>
+                                </div>
+                            </div>
+                            </div>
+                        </div>
+                        </tr>
+                         
                             @endforeach
+                            @else 
+                            <p>no pizza to show here...</p>
+                            @endif
                         </tbody>
                     </table>
+                    {{$pizzas->links()}}
                 </div>
             </div>
         </div>
