@@ -17,21 +17,26 @@
                     </ul>
                 </div>
             </div>
+            @if(count($errors)>0)
+            <div class="card mt-5">
+                <div class="card-body">
+                    <div class="alert alert-danger">
+                    @foreach($errors->all() as $error)
+                        <p>{{$error}}</p>
+                    @endforeach
+                    </div>
+                </div>
+            </div>
+            @endif
         </div>
+        
 
         {{-- pizza form  --}}
         
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">{{ __('Pizza') }}</div>
-                @if(count($errors)>0)
-                <div class="alert alert-danger">
-                    @foreach($errors->all() as $error)
-                        <p>{{$error}}</p>
-                    @endforeach
-                </div>
-                @endif
-                <form action="{{route('pizza.store')}}" method="post">
+                <form action="{{route('pizza.store')}}" method="post" enctype="multipart/form-data">
                 @csrf
                 <div class="card-body">
                     <div class="form-group">
@@ -45,9 +50,9 @@
                     <div class="form-inline" style="padding-top: 10px">
                         <label for="price">Pizza Price (£)</label>
                         <div class="input-group">
-                            <input type="number" name="small-price" class="form-control" placeholder="small pizza price">
-                            <input type="number" name="medium-price" class="form-control" placeholder="medium pizza price">
-                            <input type="number" name="large-price" class="form-control" placeholder="large pizza price">
+                            <input type="number" name="small_price" class="form-control" placeholder="small pizza price">
+                            <input type="number" name="medium_price" class="form-control" placeholder="medium pizza price">
+                            <input type="number" name="large_price" class="form-control" placeholder="large pizza price">
                         </div>
                     </div>
                     <div class="form-group" style="padding-top: 10px">
