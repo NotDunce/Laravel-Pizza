@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->integer('small-price');
-            $table->integer('medium-price');
-            $table->integer('large-price');
+            $table->integer('small_price');
+            $table->integer('medium_price');
+            $table->integer('large_price');
             $table ->string('category');
             $table->string("image");
             $table->timestamps();

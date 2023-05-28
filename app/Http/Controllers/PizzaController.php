@@ -13,8 +13,13 @@ class PizzaController extends Controller
      */
     public function index()
     {
+        $pizzas = Pizza::get();
+        
+        
         //return the pizza view
-        return view('pizza.index');
+
+
+        return view('pizza.index',compact('pizzas'));
     }
 
     /**
@@ -33,19 +38,19 @@ class PizzaController extends Controller
     {
         //
         
-        $path = $request->image->store('public/pizza')->with('message', 'Pizza added successfully');
+        $path = $request->image->store('public/pizza');
 
         Pizza::create([
             'name' => $request->name,
             'description' => $request->description,
-            'small-price' => $request->small_price,
-            'medium-price' => $request->medium_price,
-            'large-price' => $request->large_price,
+            'small_price' => $request->small_price,
+            'medium_price' => $request->medium_price,
+            'large_price' => $request->large_price,
             'category' => $request->category,
             'image' => $path,
         ]);
 
-        return redirect()->route('pizza.index');
+        return redirect()->route('pizza.index')->with('message', 'Pizza Successfully Created');
         
     }
 
