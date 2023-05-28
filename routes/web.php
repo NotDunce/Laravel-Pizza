@@ -13,9 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
@@ -41,5 +39,9 @@ Route::group(['middleware'=>'admin'],function(){
     
 });
 
+//public routes
+Route::get('/', [App\Http\Controllers\FrontendController::class, 'index'])->name('frontpage');
+Route::get('/pizza/{id}', [App\Http\Controllers\FrontendController::class, 'show'])->name('pizza.show');
+Route::post('/order/store', [App\Http\Controllers\FrontendController::class, 'store'])->name('order.store');
 
 
