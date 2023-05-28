@@ -23,7 +23,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 
 //protected routes => for admin only
-Route::group(['middleware'=>'auth','admin'],function(){
+Route::group(['middleware'=>'admin'],function(){
     Route::get('/pizza', [App\Http\Controllers\PizzaController::class, 'index'])->name('pizza.index');
     Route::get('/pizza/create', [App\Http\Controllers\PizzaController::class, 'create'])->name('pizza.create');
     Route::get('/pizza/{id}/edit', [App\Http\Controllers\PizzaController::class, 'edit'])->name('pizza.edit');
@@ -34,6 +34,11 @@ Route::group(['middleware'=>'auth','admin'],function(){
 
     //put routes
     Route::put('/pizza/{id}/update', [App\Http\Controllers\PizzaController::class, 'update'])->name('pizza.update');
+
+    //user order
+    Route::get('/order', [App\Http\Controllers\UserOrderController::class, 'index'])->name('user.order');
+    Route::post('order/{id}/status', [App\Http\Controllers\UserOrderController::class, 'changeStatus'])->name('order.status');
+    
 });
 
 
